@@ -12,12 +12,12 @@ import MusicKit
 @available(iOS 15.0, *)
 class Music: ObservableObject {
     var status: MusicAuthorization.Status = MusicAuthorization.Status.notDetermined
-    var player: MPMusicPlayerController? = nil
+    var player: SystemMusicPlayer? = nil
     var playerApl: ApplicationMusicPlayer? = nil
     @Published var albums: MusicItemCollection<Album> = []
     
     init() {
-        self.player = MPMusicPlayerController.systemMusicPlayer
+        self.player = SystemMusicPlayer.shared
         self.playerApl = ApplicationMusicPlayer.shared
         async {
             await self.authotizationRequest()
@@ -52,9 +52,9 @@ class Music: ObservableObject {
     }
     
     func play(album: Album) {
-        if let playerApl = self.playerApl {
-            playerApl.setQueue(with: album)
-            playerApl.play()
+        if let player = self.player {
+            player.setQueue(with: album)
+            player.play()
         }
     }
 }
