@@ -46,6 +46,10 @@ class Music: ObservableObject {
                     self.albums = response.albums
                 }
 
+                var requestArtist = MusicCatalogSearchRequest(term: searchKey, types: [Artist.self])
+                requestArtist.limit = 25
+                let responseArtist = try await requestArtist.response()
+                self.printMusicCatalogSearchResponse(response: responseArtist)
             }
             catch {
                 
@@ -62,6 +66,14 @@ class Music: ObservableObject {
     
     func printMusicCatalogSearchResponse(response: MusicCatalogSearchResponse) {
         print("Artist count:\(response.artists.count)")
+        for artist in response.artists {
+            if let albums = artist.albums {
+                print("- Album count:\(albums.count)")
+            }
+            else {
+                print("- Album count:nil")
+            }
+        }
         print("Album count:\(response.albums.count)")
         print("Playlists count:\(response.playlists.count)")
         print("Songs count:\(response.songs.count)")
