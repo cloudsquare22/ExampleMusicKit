@@ -38,12 +38,14 @@ class Music: ObservableObject {
                 var request = MusicCatalogSearchRequest(term: searchKey, types: [Album.self])
                 request.limit = 25
                 let response = try await request.response()
-                response.albums.forEach({ album in
-                    print(album.title)
-                })
+//                response.albums.forEach({ album in
+//                    print(album.title)
+//                })
+                self.printMusicCatalogSearchResponse(response: response)
                 DispatchQueue.main.async {
                     self.albums = response.albums
                 }
+
             }
             catch {
                 
@@ -57,4 +59,12 @@ class Music: ObservableObject {
             player.play()
         }
     }
+    
+    func printMusicCatalogSearchResponse(response: MusicCatalogSearchResponse) {
+        print("Artist count:\(response.artists.count)")
+        print("Album count:\(response.albums.count)")
+        print("Playlists count:\(response.playlists.count)")
+        print("Songs count:\(response.songs.count)")
+    }
+    
 }
