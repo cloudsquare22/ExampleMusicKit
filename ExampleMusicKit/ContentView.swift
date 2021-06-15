@@ -18,6 +18,7 @@ struct ContentView: View {
             TextField("Key", text: self.$searchKey)
                 .textFieldStyle(.roundedBorder)
             Button(action: {
+                UIApplication.shared.closeKeyboard()
                 self.music.searchAlbum(searchKey: self.searchKey)
             }, label: {
                 Label("Search Albums", systemImage: "opticaldisc")
@@ -25,10 +26,18 @@ struct ContentView: View {
                 .buttonStyle(.bordered)
             List {
                 ForEach(self.music.albums) { album in
-                    Label(album.title, systemImage: "opticaldisc")
-                        .onTapGesture {
-                            self.music.play(album: album)
+                    HStack {
+                        if let artwork = album.artwork {
+                            ArtworkImage(artwork, width: 50, height: 50)
                         }
+                        else {
+                            Image(systemName: "opticaldisc")
+                        }
+                        Text(album.title)
+                    }
+                    .onTapGesture {
+                        self.music.play(album: album)
+                    }
                 }
             }
         }
@@ -41,5 +50,12 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(Music())
+    }
+}
+
+extension UIApplication {
+    func closeKeyboard() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

@@ -14,7 +14,7 @@ class Music: ObservableObject {
     var status: MusicAuthorization.Status = MusicAuthorization.Status.notDetermined
     var player: SystemMusicPlayer? = nil
     var playerApl: ApplicationMusicPlayer? = nil
-    @Published var albums: MusicItemCollection<Album> = []
+    @Published var albums: [Album] = []
     
     init() {
         self.player = SystemMusicPlayer.shared
@@ -35,16 +35,31 @@ class Music: ObservableObject {
         }
         async {
             do {
+                DispatchQueue.main.async {
+                    self.albums = []
+                }
                 var request = MusicCatalogSearchRequest(term: searchKey, types: [Album.self])
                 request.limit = 25
-                let response = try await request.response()
+                var offset = 0
+                var next = true
+                while next {
+                    request.offset = offset
+                    let response = try await request.response()
+                    self.printMusicCatalogSearchResponse(response: response)
+                    DispatchQueue.main.async {
+                        for album in response.albums {
+                            self.albums.append(album)
+                        }
+                    }
+                    if response.albums.count < 25 {
+                        next = false
+                    }
+                    offset = offset + 25
+                }
+
 //                response.albums.forEach({ album in
 //                    print(album.title)
 //                })
-                self.printMusicCatalogSearchResponse(response: response)
-                DispatchQueue.main.async {
-                    self.albums = response.albums
-                }
 
                 var requestArtist = MusicCatalogSearchRequest(term: searchKey, types: [Artist.self])
                 requestArtist.limit = 25
@@ -65,6 +80,7 @@ class Music: ObservableObject {
     }
     
     func printMusicCatalogSearchResponse(response: MusicCatalogSearchResponse) {
+        print(response.description)
         print("Artist count:\(response.artists.count)")
         for artist in response.artists {
             if let albums = artist.albums {
