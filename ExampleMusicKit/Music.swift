@@ -40,21 +40,22 @@ class Music: ObservableObject {
                 }
                 var request = MusicCatalogSearchRequest(term: searchKey, types: [Album.self])
                 request.limit = 25
-                var offset = 0
-                var next = true
-                while next {
-                    request.offset = offset
-                    let response = try await request.response()
-                    self.printMusicCatalogSearchResponse(response: response)
-                    DispatchQueue.main.async {
-                        for album in response.albums {
-                            self.albums.append(album)
+                let response = try await request.response()
+                DispatchQueue.main.async {
+                    for album in response.albums {
+                        self.albums.append(album)
+                    }
+                }
+                var albums = response.albums
+                while albums.hasNextBatch == true {
+                    if let nextAlbums = try await albums.nextBatch(limit: 25) {
+                        albums = nextAlbums
+                        DispatchQueue.main.async {
+                            for album in nextAlbums {
+                                self.albums.append(album)
+                            }
                         }
                     }
-                    if response.albums.count < 25 {
-                        next = false
-                    }
-                    offset = offset + 25
                 }
 
 //                response.albums.forEach({ album in
@@ -70,6 +71,14 @@ class Music: ObservableObject {
                     let artist3 = try await artist.with([.albums])
                     print(artist3.debugDescription)
                     print(artist3.albums?.count)
+//                    if let albums = artist3.albums {
+//                        var next = albums.hasNextBatch
+//                        while next == true {
+//                            let nextAlbums = try await albums.nextBatch(limit: 25)
+//                            print(nextAlbums?.count)
+//                            next = nextAlbums!.hasNextBatch
+//                        }
+//                    }
 
 
                     var req3 = MusicCatalogResourceRequest<Artist>(matching: \.id, equalTo: artist.id)
