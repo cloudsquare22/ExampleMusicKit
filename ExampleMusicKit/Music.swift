@@ -65,6 +65,19 @@ class Music: ObservableObject {
                 requestArtist.limit = 25
                 let responseArtist = try await requestArtist.response()
                 self.printMusicCatalogSearchResponse(response: responseArtist)
+                
+                if let artist = responseArtist.artists.first {
+                    let artist3 = try await artist.with([.albums])
+                    print(artist3.debugDescription)
+                    print(artist3.albums?.count)
+
+
+                    var req3 = MusicCatalogResourceRequest<Artist>(matching: \.id, equalTo: artist.id)
+                    let res3 = try await req3.response()
+                    print(res3.debugDescription)
+
+
+                }
             }
             catch {
                 
@@ -80,7 +93,7 @@ class Music: ObservableObject {
     }
     
     func printMusicCatalogSearchResponse(response: MusicCatalogSearchResponse) {
-        print(response.description)
+        print(response.debugDescription)
         print("Artist count:\(response.artists.count)")
         for artist in response.artists {
             if let albums = artist.albums {
