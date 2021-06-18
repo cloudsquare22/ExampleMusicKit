@@ -15,18 +15,21 @@ struct AlbumView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let width = geometry.size.width / 3
+            let lineCount = Int(geometry.size.width / 100)
+            let width = geometry.size.width / CGFloat(lineCount) - 4.0
             ScrollView {
-                LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: width, maximum: width)), count: 3)) {
+                LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: width, maximum: width)), count: lineCount), alignment: .center, spacing: 4.0) {
                     ForEach(self.music.albums) { album in
                         if let artwork = album.artwork {
                             ArtworkImage(artwork, width: Int(width), height: Int(width))
+                                .clipShape(Circle())
                                 .onTapGesture {
                                     self.music.play(album: album)
                                 }
                         }
                         else {
                             Image(systemName: "disc")
+                                .clipShape(Circle())
                         }
                     }
                 }

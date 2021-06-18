@@ -28,6 +28,7 @@ struct AlbumShuffle: View {
             print(self.searchText)
             self.music.searchArtists(searchText: self.searchText)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
