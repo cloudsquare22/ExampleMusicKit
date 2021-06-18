@@ -12,6 +12,9 @@
 		8DF2E8372675CAB700ECED24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DF2E8362675CAB700ECED24 /* Assets.xcassets */; };
 		8DF2E83A2675CAB700ECED24 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DF2E8392675CAB700ECED24 /* Preview Assets.xcassets */; };
 		8DF2E8422675E29F00ECED24 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2E8412675E29F00ECED24 /* Music.swift */; };
+		8DF2E844267C621800ECED24 /* AlbumShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2E843267C621800ECED24 /* AlbumShuffle.swift */; };
+		8DF2E846267C690F00ECED24 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2E845267C690F00ECED24 /* AlbumView.swift */; };
+		8DF2E849267C78C100ECED24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF2E848267C78C100ECED24 /* Algorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,8 @@
 		8DF2E8392675CAB700ECED24 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DF2E8402675CC8200ECED24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DF2E8412675E29F00ECED24 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		8DF2E843267C621800ECED24 /* AlbumShuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumShuffle.swift; sourceTree = "<group>"; };
+		8DF2E845267C690F00ECED24 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DF2E849267C78C100ECED24 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +66,8 @@
 				8DF2E8362675CAB700ECED24 /* Assets.xcassets */,
 				8DF2E8382675CAB700ECED24 /* Preview Content */,
 				8DF2E8412675E29F00ECED24 /* Music.swift */,
+				8DF2E843267C621800ECED24 /* AlbumShuffle.swift */,
+				8DF2E845267C690F00ECED24 /* AlbumView.swift */,
 			);
 			path = ExampleMusicKit;
 			sourceTree = "<group>";
@@ -88,6 +96,9 @@
 			dependencies = (
 			);
 			name = ExampleMusicKit;
+			packageProductDependencies = (
+				8DF2E848267C78C100ECED24 /* Algorithms */,
+			);
 			productName = ExampleMusicKit;
 			productReference = 8DF2E82F2675CAB500ECED24 /* ExampleMusicKit.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +127,9 @@
 				Base,
 			);
 			mainGroup = 8DF2E8262675CAB500ECED24;
+			packageReferences = (
+				8DF2E847267C78C100ECED24 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 8DF2E8302675CAB500ECED24 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -145,6 +159,8 @@
 				8DF2E8422675E29F00ECED24 /* Music.swift in Sources */,
 				8DF2E8352675CAB500ECED24 /* ContentView.swift in Sources */,
 				8DF2E8332675CAB500ECED24 /* ExampleMusicKitApp.swift in Sources */,
+				8DF2E846267C690F00ECED24 /* AlbumView.swift in Sources */,
+				8DF2E844267C621800ECED24 /* AlbumShuffle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +373,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8DF2E847267C78C100ECED24 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8DF2E848267C78C100ECED24 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8DF2E847267C78C100ECED24 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DF2E8272675CAB500ECED24 /* Project object */;
 }

@@ -12,8 +12,10 @@ import SwiftUI
 struct ExampleMusicKitApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AlbumShuffle()
                 .environmentObject(Music())
+//            ContentView()
+//                .environmentObject(Music())
         }
     }
 }

@@ -8,13 +8,15 @@
 import SwiftUI
 import MediaPlayer
 import MusicKit
+import Algorithms
 
 @available(iOS 15.0, *)
 class Music: ObservableObject {
     var status: MusicAuthorization.Status = MusicAuthorization.Status.notDetermined
     var player: SystemMusicPlayer? = nil
     var playerApl: ApplicationMusicPlayer? = nil
-    @Published var albums: MusicItemCollection<Album> = []
+    @Published var albums: [Album] = []
+    @Published var artists: MusicItemCollection<Artist> = []
     
     init() {
         self.player = SystemMusicPlayer.shared
@@ -59,15 +61,16 @@ class Music: ObservableObject {
 //                    print(album.title)
 //                })
 
-                var requestArtist = MusicCatalogSearchRequest(term: searchKey, types: [Artist.self])
+                var requestArtist = MusicCatalogSearchRequest(term: searchKey, types: [Song.self])
                 requestArtist.limit = 25
                 let responseArtist = try await requestArtist.response()
                 self.printMusicCatalogSearchResponse(response: responseArtist)
+                print(responseArtist.debugDescription)
                 
-                if let artist = responseArtist.artists.first {
-                    let artist3 = try await artist.with([.albums])
-                    print(artist3.debugDescription)
-                    print(artist3.albums?.count)
+//                if let artist = responseArtist.artists.first {
+//                    let artist3 = try await artist.with([.albums])
+//                    print(artist3.debugDescription)
+//                    print(artist3.albums?.count)
 //                    if let albums = artist3.albums {
 //                        var next = albums.hasNextBatch
 //                        while next == true {
@@ -78,11 +81,66 @@ class Music: ObservableObject {
 //                    }
 
 
-                    var req3 = MusicCatalogResourceRequest<Artist>(matching: \.id, equalTo: artist.id)
-                    let res3 = try await req3.response()
-                    print(res3.debugDescription)
-
-
+//                    var req3 = MusicCatalogResourceRequest<Artist>(matching: \.id, equalTo: artist.id)
+//                    let res3 = try await req3.response()
+//                    print(res3.debugDescription)
+//
+//
+//                }
+            }
+            catch {
+                
+            }
+        }
+    }
+    
+    func searchAlbum(artist: Artist) async {
+        do {
+            self.albums = []
+            let artistWith = try await artist.with([.albums])
+            var searchAlbums: MusicItemCollection<Album> = []
+            if let albumsWith = artistWith.albums {
+                searchAlbums = albumsWith
+                var albums = albumsWith
+                while albums.hasNextBatch == true {
+                    if let nextAlbums = try await albums.nextBatch(limit: 25) {
+                        print(nextAlbums.count)
+                        albums = nextAlbums
+                        searchAlbums += nextAlbums
+                    }
+                }
+                self.albums = searchAlbums.randomSample(count: searchAlbums.count)
+            }
+        }
+        catch {
+            
+        }
+    }
+    
+    func searchArtists(searchText: String) {
+        guard searchText.isEmpty == false else {
+            return
+        }
+        async {
+            do {
+                DispatchQueue.main.async {
+                    self.artists = []
+                }
+                var request = MusicCatalogSearchRequest(term: searchText, types: [Artist.self])
+                request.limit = 25
+                let response = try await request.response()
+                DispatchQueue.main.async {
+                    self.artists += response.artists
+                }
+                var artists = response.artists
+                while artists.hasNextBatch == true {
+                    if let nextArtists = try await artists.nextBatch(limit: 25) {
+                        print(nextArtists.count)
+                        artists = nextArtists
+                        DispatchQueue.main.async {
+                            self.artists += nextArtists
+                        }
+                    }
                 }
             }
             catch {
