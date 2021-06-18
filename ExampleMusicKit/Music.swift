@@ -14,7 +14,7 @@ class Music: ObservableObject {
     var status: MusicAuthorization.Status = MusicAuthorization.Status.notDetermined
     var player: SystemMusicPlayer? = nil
     var playerApl: ApplicationMusicPlayer? = nil
-    @Published var albums: [Album] = []
+    @Published var albums: MusicItemCollection<Album> = []
     
     init() {
         self.player = SystemMusicPlayer.shared
@@ -42,18 +42,15 @@ class Music: ObservableObject {
                 request.limit = 25
                 let response = try await request.response()
                 DispatchQueue.main.async {
-                    for album in response.albums {
-                        self.albums.append(album)
-                    }
+                    self.albums += response.albums
                 }
                 var albums = response.albums
                 while albums.hasNextBatch == true {
                     if let nextAlbums = try await albums.nextBatch(limit: 25) {
+                        print(nextAlbums.count)
                         albums = nextAlbums
                         DispatchQueue.main.async {
-                            for album in nextAlbums {
-                                self.albums.append(album)
-                            }
+                            self.albums += nextAlbums
                         }
                     }
                 }
