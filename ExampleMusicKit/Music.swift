@@ -17,6 +17,7 @@ class Music: ObservableObject {
     var playerApl: ApplicationMusicPlayer? = nil
     @Published var albums: [Album] = []
     @Published var artists: MusicItemCollection<Artist> = []
+    var selectAlbum: Album? = nil
     
     init() {
         self.player = SystemMusicPlayer.shared

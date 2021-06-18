@@ -12,6 +12,7 @@ import MusicKit
 struct AlbumView: View {
     @EnvironmentObject var music: Music
     var artist: Artist
+    @State var onAlbumInfoView = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -23,8 +24,14 @@ struct AlbumView: View {
                         if let artwork = album.artwork {
                             ArtworkImage(artwork, width: Int(width), height: Int(width))
                                 .clipShape(Circle())
-                                .onTapGesture {
+                                .onTapGesture(count: 2) {
                                     self.music.play(album: album)
+                                }
+                                .onTapGesture {
+                                    print("tap 1")
+                                    self.music.selectAlbum = album
+                                    self.onAlbumInfoView.toggle()
+//                                    self.music.play(album: album)
                                 }
                         }
                         else {
@@ -34,6 +41,8 @@ struct AlbumView: View {
                     }
                 }
 
+            }.sheet(isPresented: self.$onAlbumInfoView, onDismiss: {}) {
+                AlbumInfoView()
             }
         }
         .task {

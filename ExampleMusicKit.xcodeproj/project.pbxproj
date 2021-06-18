@@ -15,6 +15,7 @@
 		8DF2E844267C621800ECED24 /* AlbumShuffle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2E843267C621800ECED24 /* AlbumShuffle.swift */; };
 		8DF2E846267C690F00ECED24 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2E845267C690F00ECED24 /* AlbumView.swift */; };
 		8DF2E849267C78C100ECED24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF2E848267C78C100ECED24 /* Algorithms */; };
+		8DF2E84B267D539A00ECED24 /* AlbumInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2E84A267D539A00ECED24 /* AlbumInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		8DF2E8412675E29F00ECED24 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		8DF2E843267C621800ECED24 /* AlbumShuffle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumShuffle.swift; sourceTree = "<group>"; };
 		8DF2E845267C690F00ECED24 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		8DF2E84A267D539A00ECED24 /* AlbumInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				8DF2E8412675E29F00ECED24 /* Music.swift */,
 				8DF2E843267C621800ECED24 /* AlbumShuffle.swift */,
 				8DF2E845267C690F00ECED24 /* AlbumView.swift */,
+				8DF2E84A267D539A00ECED24 /* AlbumInfoView.swift */,
 			);
 			path = ExampleMusicKit;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DF2E84B267D539A00ECED24 /* AlbumInfoView.swift in Sources */,
 				8DF2E8422675E29F00ECED24 /* Music.swift in Sources */,
 				8DF2E8352675CAB500ECED24 /* ContentView.swift in Sources */,
 				8DF2E8332675CAB500ECED24 /* ExampleMusicKitApp.swift in Sources */,
