@@ -13,24 +13,33 @@ struct AlbumInfoView: View {
     @EnvironmentObject var music: Music
     
     var body: some View {
-        VStack {
-            if let artwork = self.music.selectAlbum!.artwork {
-                ArtworkImage(artwork, width: 200, height: 200)
-                    .clipShape(Circle())
-            }
-            else {
-                Image(systemName: "disc")
-                    .clipShape(Circle())
-            }
-            Text(self.music.selectAlbum!.title)
-            List {
-                if let tracks = self.music.selectAlbum?.tracks {
-                    ForEach(tracks) { track in
-                        Text(track.title)
-                    }
+        GeometryReader { geometry in
+            let width = geometry.size.width / 2.0
+            VStack {
+                if let artwork = self.music.selectAlbum!.artwork {
+                    ArtworkImage(artwork, width: Int(width), height: Int(width))
+                        .clipShape(Circle())
                 }
                 else {
-                    Text("none")
+                    Image(systemName: "disc")
+                        .clipShape(Circle())
+                }
+                Text(self.music.selectAlbum!.title)
+                Button(action: {
+                    self.music.play(album: self.music.selectAlbum!)
+                }) {
+                    Image(systemName: "play.circle")
+                        .font(.largeTitle)
+                }
+                List {
+                    if let tracks = self.music.selectAlbum?.tracks {
+                        ForEach(tracks) { track in
+                            Text(track.title)
+                        }
+                    }
+                    else {
+                        Text("none")
+                    }
                 }
             }
         }
