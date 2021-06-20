@@ -23,6 +23,19 @@ struct AlbumInfoView: View {
                     .clipShape(Circle())
             }
             Text(self.music.selectAlbum!.title)
+            List {
+                if let tracks = self.music.selectAlbum?.tracks {
+                    ForEach(tracks) { track in
+                        Text(track.title)
+                    }
+                }
+                else {
+                    Text("none")
+                }
+            }
+        }
+        .task {
+            await self.music.withTeacks()
         }
     }
 }

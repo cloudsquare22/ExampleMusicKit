@@ -17,7 +17,7 @@ class Music: ObservableObject {
     var playerApl: ApplicationMusicPlayer? = nil
     @Published var albums: [Album] = []
     @Published var artists: MusicItemCollection<Artist> = []
-    var selectAlbum: Album? = nil
+    @Published var selectAlbum: Album? = nil
     
     init() {
         self.player = SystemMusicPlayer.shared
@@ -148,6 +148,17 @@ class Music: ObservableObject {
                 
             }
         }
+    }
+    
+    func withTeacks() async {
+        do {
+            selectAlbum = try await self.selectAlbum?.with([.tracks])
+            print(selectAlbum?.tracks?.count)
+        }
+        catch {
+            
+        }
+        
     }
     
     func play(album: Album) {
