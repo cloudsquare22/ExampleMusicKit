@@ -161,6 +161,17 @@ class Music: ObservableObject {
         
     }
     
+    func trackToSong(track: Track) -> Song? {
+        var result: Song? = nil
+        switch(track) {
+        case .song(let song):
+            result = song
+        default:
+            break
+        }
+        return result
+    }
+    
     func play(album: Album) {
         if let player = self.player {
             player.setQueue(with: album)

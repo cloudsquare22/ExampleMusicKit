@@ -34,7 +34,9 @@ struct AlbumInfoView: View {
                 List {
                     if let tracks = self.music.selectAlbum?.tracks {
                         ForEach(tracks) { track in
-                            Text(track.title)
+                            if let song = self.music.trackToSong(track: track) {
+                                Text("\(song.discNumber!)-\(song.trackNumber!) \(track.title)")
+                            }
                         }
                     }
                     else {
