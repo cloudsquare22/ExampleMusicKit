@@ -39,9 +39,6 @@ struct AlbumInfoView: View {
                             }
                         }
                     }
-                    else {
-                        Text("none")
-                    }
                 }
             }
         }
