@@ -17,8 +17,13 @@ struct AlbumInfoView: View {
             let width = geometry.size.width / 2.0
             VStack {
                 if let artwork = self.music.selectAlbum!.artwork {
-                    ArtworkImage(artwork, width: Int(width), height: Int(width))
-                        .clipShape(Circle())
+                    let rate = self.music.artworkRate(artwork: artwork)
+                    ZStack {
+                        Color(uiColor: .systemGray4)
+                        ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                    }
+                    .frame(width: width, height: width)
+                    .clipShape(Circle())
                 }
                 else {
                     Image(systemName: "disc")
@@ -35,7 +40,7 @@ struct AlbumInfoView: View {
                     if let tracks = self.music.selectAlbum?.tracks {
                         ForEach(tracks) { track in
                             if let song = self.music.trackToSong(track: track) {
-                                Text("\(song.discNumber!)-\(song.trackNumber!) \(track.title)")
+                                Text("\(song.title)")
                             }
                         }
                     }

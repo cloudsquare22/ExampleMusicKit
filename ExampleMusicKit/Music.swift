@@ -111,6 +111,7 @@ class Music: ObservableObject {
                     }
                 }
                 self.albums = searchAlbums.randomSample(count: searchAlbums.count)
+                print(self.albums.debugDescription)
             }
         }
         catch {
@@ -169,6 +170,22 @@ class Music: ObservableObject {
         default:
             break
         }
+        return result
+    }
+    
+    func artworkRate(artwork: Artwork) -> (Double, Double) {
+        var result = (1.0, 1.0)
+//        print(artwork.maximumWidth)
+//        print(artwork.maximumHeight)
+        if artwork.maximumWidth > artwork.maximumHeight {
+            result.0 = 1.0
+            result.1 = Double(artwork.maximumHeight) / Double(artwork.maximumWidth)
+        }
+        else {
+            result.0 = Double(artwork.maximumWidth) / Double(artwork.maximumHeight)
+            result.1 = 1.0
+        }
+//        print(result)
         return result
     }
     

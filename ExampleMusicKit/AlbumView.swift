@@ -22,17 +22,23 @@ struct AlbumView: View {
                 LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: width, maximum: width)), count: lineCount), alignment: .center, spacing: 4.0) {
                     ForEach(self.music.albums) { album in
                         if let artwork = album.artwork {
-                            ArtworkImage(artwork, width: Int(width), height: Int(width))
-                                .clipShape(Circle())
-                                .onTapGesture(count: 2) {
-                                    self.music.play(album: album)
-                                }
-                                .onTapGesture {
-                                    print("tap 1")
-                                    self.music.selectAlbum = album
-                                    self.onAlbumInfoView.toggle()
-//                                    self.music.play(album: album)
-                                }
+                            let rate = self.music.artworkRate(artwork: artwork)
+                            ZStack {
+                                Color(uiColor: .systemGray4)
+                                ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                                    .onTapGesture(count: 2) {
+                                        self.music.play(album: album)
+                                    }
+                                    .onTapGesture {
+                                        print("tap 1")
+                                        self.music.selectAlbum = album
+                                        self.onAlbumInfoView.toggle()
+    //                                    self.music.play(album: album)
+                                    }
+
+                            }
+                            .frame(width: width, height: width)
+                            .clipShape(Circle())
                         }
                         else {
                             Image(systemName: "disc")
