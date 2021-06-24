@@ -24,7 +24,12 @@ struct AlbumView: View {
                         if let artwork = album.artwork {
                             let rate = self.music.artworkRate(artwork: artwork)
                             ZStack {
-                                Color(uiColor: .systemGray4)
+                                if let cgcolor = artwork.backgroundColor {
+                                    Color(cgColor: cgcolor)
+                                }
+                                else {
+                                    Color(uiColor: .systemGray4)
+                                }
                                 ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
                                     .onTapGesture(count: 2) {
                                         self.music.play(album: album)
