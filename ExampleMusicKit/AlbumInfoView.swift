@@ -35,6 +35,7 @@ struct AlbumInfoView: View {
                         .clipShape(Circle())
                 }
                 Text(self.music.selectAlbum!.title)
+                Text(self.music.getReleaseDate(album: self.music.selectAlbum!))
                 Button(action: {
                     self.music.play(album: self.music.selectAlbum!)
                 }) {

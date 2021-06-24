@@ -167,6 +167,7 @@ class Music: ObservableObject {
         switch(track) {
         case .song(let song):
             result = song
+//            print(song.debugDescription)
         default:
             break
         }
@@ -186,6 +187,19 @@ class Music: ObservableObject {
             result.1 = 1.0
         }
 //        print(result)
+        return result
+    }
+    
+    func getReleaseDate(album: Album) -> String {
+        print(#function)
+        print(album.debugDescription)
+        var result: String = ""
+     
+        let pattern = ".*releaseDate: ($1).*"
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return result }
+        let matches = regex.matches(in: album.debugDescription, range: NSRange(location: 0, length: album.debugDescription.count))
+        print("matches:\(matches)")
+        
         return result
     }
     
