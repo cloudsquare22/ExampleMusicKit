@@ -190,10 +190,10 @@ class Music: ObservableObject {
         return result
     }
     
-    func getReleaseDate(album: Album) -> String {
+    func getReleaseDate(album: Album) -> String? {
         print(#function)
         print(album.debugDescription)
-        var result: String = ""
+        var result: String? = nil
      
         let pattern = ".*releaseDate: \"(.*)\",.*"
         guard let regex = try? NSRegularExpression(pattern: pattern) else { return result }
@@ -201,8 +201,8 @@ class Music: ObservableObject {
         if matches.count > 0 {
             let checkNS = NSString(string: album.debugDescription)
             result = checkNS.substring(with: matches[0].range(at: 1))
+            print("result:\(result!)")
         }
-        print("result:\(result)")
         
         return result
     }

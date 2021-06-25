@@ -35,14 +35,24 @@ struct AlbumInfoView: View {
                         .clipShape(Circle())
                 }
                 Text(self.music.selectAlbum!.title)
+                    .font(.title2)
+                    .padding(2.0)
                 Text(self.music.selectAlbum!.artistName)
-                Text(self.music.getReleaseDate(album: self.music.selectAlbum!))
+                    .padding(2.0)
+                if let releaseDate = self.music.getReleaseDate(album: self.music.selectAlbum!) {
+                    Label(releaseDate, systemImage: "calendar.circle")
+                        .padding(2.0)
+                }
                 Button(action: {
                     self.music.play(album: self.music.selectAlbum!)
                 }) {
-                    Image(systemName: "play.circle")
-                        .font(.largeTitle)
+                    HStack {
+                        Image(systemName: "play.fill")
+                        Text("Play")
+                    }
+                    .frame(maxWidth: 200)
                 }
+                .buttonStyle(ProminentButtonStyle())
                 List {
                     if let tracks = self.music.selectAlbum?.tracks {
                         ForEach(tracks) { track in
@@ -65,5 +75,29 @@ struct AlbumInfoView_Previews: PreviewProvider {
         Text("Album Inof View")
 
         //        AlbumInfoView()
+    }
+}
+
+/// `ProminentButtonStyle` is a custom button style that encapsulates
+/// all the common modifiers for prominent buttons shown in the UI.
+@available(iOS 15.0, *)
+struct ProminentButtonStyle: ButtonStyle {
+    
+    /// The app-wide color scheme.
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    
+    /// Applies relevant modifiers for this button style.
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .font(.title3.bold())
+            .foregroundColor(.accentColor)
+            .padding()
+            .background(backgroundColor.cornerRadius(8))
+    }
+    
+    /// The background color appropriate for the current color scheme.
+    private var backgroundColor: Color {
+        return Color(uiColor: .systemGray4)
+//        return Color(uiColor: (colorScheme == .dark) ? .secondarySystemBackground : .systemBackground)
     }
 }
