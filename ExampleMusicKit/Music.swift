@@ -195,10 +195,14 @@ class Music: ObservableObject {
         print(album.debugDescription)
         var result: String = ""
      
-        let pattern = ".*releaseDate: ($1).*"
+        let pattern = ".*releaseDate: \"(.*)\",.*"
         guard let regex = try? NSRegularExpression(pattern: pattern) else { return result }
         let matches = regex.matches(in: album.debugDescription, range: NSRange(location: 0, length: album.debugDescription.count))
-        print("matches:\(matches)")
+        if matches.count > 0 {
+            let checkNS = NSString(string: album.debugDescription)
+            result = checkNS.substring(with: matches[0].range(at: 1))
+        }
+        print("result:\(result)")
         
         return result
     }
