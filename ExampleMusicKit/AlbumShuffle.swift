@@ -11,19 +11,20 @@ import SwiftUI
 struct AlbumShuffle: View {
     @EnvironmentObject var music: Music
     @State var searchText: String = ""
-        
+    
     var body: some View {
         NavigationView {
             List {                
                 ForEach(self.music.artists) { artist in
                     NavigationLink(artist.name, destination: {
                         AlbumView(artist: artist)
+                            .environmentObject(self.music)
                     })
                 }
             }
-            .navigationTitle("Artis Search")
+            .navigationTitle("Artist Search")
         }
-        .searchable("Artist", text: self.$searchText)
+        .searchable(text: self.$searchText, placement: .automatic, prompt: "Artist")
         .onSubmit(of: .search) {
             print(self.searchText)
             self.music.searchArtists(searchText: self.searchText)
