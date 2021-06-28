@@ -8,7 +8,6 @@
 import SwiftUI
 import MusicKit
 
-@available(iOS 15.0, *)
 struct AlbumView: View {
     @EnvironmentObject var music: Music
     var artist: Artist
@@ -63,7 +62,6 @@ struct AlbumView: View {
     }
 }
 
-@available(iOS 15.0, *)
 struct AlbumView_Previews: PreviewProvider {
     static var previews: some View {
         Text("Album View")

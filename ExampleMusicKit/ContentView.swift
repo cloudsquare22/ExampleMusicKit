@@ -8,7 +8,6 @@
 import SwiftUI
 import MusicKit
 
-@available(iOS 15.0, *)
 struct ContentView: View {
     @EnvironmentObject var music: Music
     @State var searchKey: String = ""
@@ -46,7 +45,6 @@ struct ContentView: View {
     
 }
 
-@available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

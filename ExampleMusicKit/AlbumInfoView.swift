@@ -8,7 +8,6 @@
 import SwiftUI
 import MusicKit
 
-@available(iOS 15.0, *)
 struct AlbumInfoView: View {
     @EnvironmentObject var music: Music
     
@@ -80,7 +79,6 @@ struct AlbumInfoView_Previews: PreviewProvider {
 
 /// `ProminentButtonStyle` is a custom button style that encapsulates
 /// all the common modifiers for prominent buttons shown in the UI.
-@available(iOS 15.0, *)
 struct ProminentButtonStyle: ButtonStyle {
     
     /// The app-wide color scheme.

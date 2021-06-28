@@ -10,7 +10,6 @@ import MediaPlayer
 import MusicKit
 import Algorithms
 
-@available(iOS 15.0, *)
 class Music: ObservableObject {
     var status: MusicAuthorization.Status = MusicAuthorization.Status.notDetermined
     var player: SystemMusicPlayer? = nil
@@ -154,7 +153,7 @@ class Music: ObservableObject {
     func withTeacks() async {
         do {
             selectAlbum = try await self.selectAlbum?.with([.tracks])
-            print(selectAlbum?.tracks?.count)
+//            print(selectAlbum?.tracks?.count)
         }
         catch {
             

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 struct AlbumShuffle: View {
     @EnvironmentObject var music: Music
     @State var searchText: String = ""
@@ -33,7 +32,6 @@ struct AlbumShuffle: View {
     }
 }
 
-@available(iOS 15.0, *)
 struct AlbumShuffle_Previews: PreviewProvider {
     static var previews: some View {
         AlbumShuffle()
