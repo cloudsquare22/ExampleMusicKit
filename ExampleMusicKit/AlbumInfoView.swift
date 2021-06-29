@@ -35,12 +35,13 @@ struct AlbumInfoView: View {
                 }
                 Text(self.music.selectAlbum!.title)
                     .font(.title2)
-                    .padding(2.0)
+                    .padding(8.0)
                 Text(self.music.selectAlbum!.artistName)
                     .padding(2.0)
                 if let releaseDate = self.music.getReleaseDate(album: self.music.selectAlbum!) {
                     Label(releaseDate, systemImage: "calendar.circle")
                         .padding(2.0)
+                        .symbolRenderingMode(.hierarchical)
                 }
                 Button(action: {
                     self.music.play(album: self.music.selectAlbum!)
