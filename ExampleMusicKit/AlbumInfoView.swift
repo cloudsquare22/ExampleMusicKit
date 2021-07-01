@@ -10,6 +10,8 @@ import MusicKit
 
 struct AlbumInfoView: View {
     @EnvironmentObject var music: Music
+    @State var radians = 0.0
+    @State var radiansChange = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,6 +30,7 @@ struct AlbumInfoView: View {
                     }
                     .frame(width: width, height: width)
                     .clipShape(Circle())
+                    .rotationEffect(Angle(degrees: self.radians))
                 }
                 else {
                     Image(systemName: "disc")
@@ -66,6 +69,12 @@ struct AlbumInfoView: View {
         }
         .task {
             await self.music.withTeacks()
+            withAnimation(Animation.default.repeatForever().speed(0.2)) {
+                self.radiansChange.toggle()
+//                self.radians = self.radiansChange == true ? Double.pi / 180.0 * 180.0 : Double.pi / 180.0 * 360.0
+                self.radians = 360
+                print(self.radians)
+            }
         }
     }
 }
