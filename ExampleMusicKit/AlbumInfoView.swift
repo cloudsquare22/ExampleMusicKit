@@ -47,7 +47,14 @@ struct AlbumInfoView: View {
                         .symbolRenderingMode(.hierarchical)
                 }
                 Button(action: {
-                    self.music.play(album: self.music.selectAlbum!)
+//                    self.music.play(album: self.music.selectAlbum!)
+                    withAnimation(Animation.default.repeatForever().speed(2.0)) {
+                        self.radians += 45
+                        if self.radians == 360 {
+                            self.radians = 0
+                        }
+                        print(self.radians)
+                    }
                 }) {
                     HStack {
                         Image(systemName: "play.fill")
@@ -69,12 +76,17 @@ struct AlbumInfoView: View {
         }
         .task {
             await self.music.withTeacks()
-            withAnimation(Animation.default.repeatForever().speed(0.2)) {
-                self.radiansChange.toggle()
-//                self.radians = self.radiansChange == true ? Double.pi / 180.0 * 180.0 : Double.pi / 180.0 * 360.0
-                self.radians = 360
-                print(self.radians)
-            }
+//            withAnimation(Animation.default.repeatForever().speed(0.2)) {
+//                self.radiansChange.toggle()
+////                self.radians = self.radiansChange == true ? Double.pi / 180.0 * 180.0 : Double.pi / 180.0 * 360.0
+//                self.radians += 45
+//                if self.radians == 360 {
+//                    self.radians = 0
+//                }
+//                print(self.radians)
+//            }
+        }
+        .onAppear {
         }
     }
 }
