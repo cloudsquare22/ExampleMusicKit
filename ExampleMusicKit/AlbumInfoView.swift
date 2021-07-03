@@ -49,11 +49,10 @@ struct AlbumInfoView: View {
                 Button(action: {
 //                    self.music.play(album: self.music.selectAlbum!)
                     withAnimation(Animation.default.repeatForever().speed(2.0)) {
-                        self.radians += 45
+                        self.radians += 180
                         if self.radians == 360 {
                             self.radians = 0
                         }
-                        print(self.radians)
                     }
                 }) {
                     HStack {
