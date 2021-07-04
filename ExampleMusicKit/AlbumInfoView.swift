@@ -12,6 +12,7 @@ struct AlbumInfoView: View {
     @EnvironmentObject var music: Music
     @State var radians = 0.0
     @State var radiansChange = false
+    @State private var rotation: Double = 0
     
     var body: some View {
         GeometryReader { geometry in
@@ -30,7 +31,9 @@ struct AlbumInfoView: View {
                     }
                     .frame(width: width, height: width)
                     .clipShape(Circle())
-                    .rotationEffect(Angle(degrees: self.radians))
+//                    .rotationEffect(Angle(degrees: self.radians))
+                    .rotationEffect(.degrees(rotation))
+//                    .animation(Animation.default.repeatForever(autoreverses: false).speed(0.2))
                 }
                 else {
                     Image(systemName: "disc")
@@ -48,11 +51,8 @@ struct AlbumInfoView: View {
                 }
                 Button(action: {
 //                    self.music.play(album: self.music.selectAlbum!)
-                    withAnimation(Animation.default.repeatForever().speed(2.0)) {
-                        self.radians += 180
-                        if self.radians == 360 {
-                            self.radians = 0
-                        }
+                    withAnimation(Animation.default.repeatForever(autoreverses: false).speed(0.2)) {
+                        self.rotation = self.rotation + 360
                     }
                 }) {
                     HStack {
@@ -75,6 +75,9 @@ struct AlbumInfoView: View {
         }
         .task {
             await self.music.withTeacks()
+//            withAnimation(Animation.default.repeatForever(autoreverses: false).speed(0.1)) {
+//                self.rotation = self.rotation + 360
+//            }
 //            withAnimation(Animation.default.repeatForever().speed(0.2)) {
 //                self.radiansChange.toggle()
 ////                self.radians = self.radiansChange == true ? Double.pi / 180.0 * 180.0 : Double.pi / 180.0 * 360.0
