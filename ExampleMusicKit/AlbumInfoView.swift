@@ -29,11 +29,9 @@ struct AlbumInfoView: View {
                         }
                         ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
                     }
+                    .rotationEffect(.degrees(rotation))
                     .frame(width: width, height: width)
                     .clipShape(Circle())
-//                    .rotationEffect(Angle(degrees: self.radians))
-                    .rotationEffect(.degrees(rotation))
-//                    .animation(Animation.default.repeatForever(autoreverses: false).speed(0.2))
                 }
                 else {
                     Image(systemName: "disc")
@@ -51,8 +49,8 @@ struct AlbumInfoView: View {
                 }
                 Button(action: {
 //                    self.music.play(album: self.music.selectAlbum!)
-                    withAnimation(Animation.default.repeatForever(autoreverses: false).speed(0.2)) {
-                        self.rotation = self.rotation + 360
+                    withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {
+                        self.rotation = 360
                     }
                 }) {
                     HStack {
@@ -75,18 +73,6 @@ struct AlbumInfoView: View {
         }
         .task {
             await self.music.withTeacks()
-//            withAnimation(Animation.default.repeatForever(autoreverses: false).speed(0.1)) {
-//                self.rotation = self.rotation + 360
-//            }
-//            withAnimation(Animation.default.repeatForever().speed(0.2)) {
-//                self.radiansChange.toggle()
-////                self.radians = self.radiansChange == true ? Double.pi / 180.0 * 180.0 : Double.pi / 180.0 * 360.0
-//                self.radians += 45
-//                if self.radians == 360 {
-//                    self.radians = 0
-//                }
-//                print(self.radians)
-//            }
         }
         .onAppear {
         }
