@@ -10,10 +10,10 @@ import MusicKit
 
 struct AlbumInfoView: View {
     @EnvironmentObject var music: Music
-    @State var radians = 0.0
-    @State var radiansChange = false
     @State private var rotation: Double = 0
-    
+    @State private var isPlay:Bool = false
+    @State private var isPlay1st:Bool = true
+
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width / 2.0
@@ -48,14 +48,30 @@ struct AlbumInfoView: View {
                         .symbolRenderingMode(.hierarchical)
                 }
                 Button(action: {
-//                    self.music.play(album: self.music.selectAlbum!)
-                    withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {
-                        self.rotation = 360
+                    if self.isPlay == false {
+                        if self.isPlay1st == true {
+                            self.music.play(album: self.music.selectAlbum!)
+                            self.isPlay1st = false
+                        }
+                        else {
+                            self.music.play()
+                        }
+                        withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {
+                            self.rotation = 360
+                        }
                     }
+                    else {
+                        self.music.pause()
+                    }
+                    self.isPlay.toggle()
                 }) {
                     HStack {
-                        Image(systemName: "play.fill")
-                        Text("Play")
+                        if self.isPlay == false {
+                            Image(systemName: "play.fill")
+                        }
+                        else {
+                            Image(systemName: "playpause.fill")
+                        }
                     }
                     .frame(maxWidth: 200)
                 }

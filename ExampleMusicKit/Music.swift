@@ -213,6 +213,18 @@ class Music: ObservableObject {
         }
     }
     
+    func play() {
+        if let player = self.player {
+            player.play()
+        }
+    }
+    
+    func pause() {
+        if let player = self.player {
+            player.pause()
+        }
+    }
+    
     func printMusicCatalogSearchResponse(response: MusicCatalogSearchResponse) {
         print(response.debugDescription)
         print("Artist count:\(response.artists.count)")
