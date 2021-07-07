@@ -14,6 +14,8 @@ struct AlbumInfoView: View {
     @State private var isPlay: Bool = false
     @State private var isPlay1st: Bool = true
     @State private var isAnnimation: Bool = false
+    @State private var opacityControlBase = 1.0
+    @State private var opacityControl = 0.0
 
     var body: some View {
         GeometryReader { geometry in
@@ -29,7 +31,10 @@ struct AlbumInfoView: View {
                             Color(uiColor: .systemGray4)
                         }
                         ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                            .opacity(self.opacityControlBase)
+                        ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
                             .rotationEffect(.degrees(rotation))
+                            .opacity(self.opacityControl)
 //                        if self.isAnnimation == false {
 //                            ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
 //                        }
@@ -69,10 +74,14 @@ struct AlbumInfoView: View {
                         withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {
                             self.rotation = 360
                         }
+                        self.opacityControl = 1.0
+                        self.opacityControlBase = 0.0
                     }
                     else {
                         self.music.pause()
                         self.isAnnimation = false
+                        self.opacityControl = 0.0
+                        self.opacityControlBase = 1.0
                     }
                     self.isPlay.toggle()
                 }) {
