@@ -11,8 +11,9 @@ import MusicKit
 struct AlbumInfoView: View {
     @EnvironmentObject var music: Music
     @State private var rotation: Double = 0
-    @State private var isPlay:Bool = false
-    @State private var isPlay1st:Bool = true
+    @State private var isPlay: Bool = false
+    @State private var isPlay1st: Bool = true
+    @State private var isAnnimation: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -28,8 +29,15 @@ struct AlbumInfoView: View {
                             Color(uiColor: .systemGray4)
                         }
                         ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                            .rotationEffect(.degrees(rotation))
+//                        if self.isAnnimation == false {
+//                            ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+//                        }
+//                        else {
+//                            ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+//                                .rotationEffect(.degrees(rotation))
+//                        }
                     }
-                    .rotationEffect(.degrees(rotation))
                     .frame(width: width, height: width)
                     .clipShape(Circle())
                 }
@@ -52,9 +60,11 @@ struct AlbumInfoView: View {
                         if self.isPlay1st == true {
                             self.music.play(album: self.music.selectAlbum!)
                             self.isPlay1st = false
+                            self.isAnnimation = true
                         }
                         else {
                             self.music.play()
+                            self.isAnnimation = true
                         }
                         withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {
                             self.rotation = 360
@@ -62,6 +72,7 @@ struct AlbumInfoView: View {
                     }
                     else {
                         self.music.pause()
+                        self.isAnnimation = false
                     }
                     self.isPlay.toggle()
                 }) {
