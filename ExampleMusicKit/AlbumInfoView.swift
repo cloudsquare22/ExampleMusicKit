@@ -14,11 +14,21 @@ struct AlbumInfoView: View {
     @State private var isPlay: Bool = false
     @State private var isPlay1st: Bool = true
     @State private var isAnnimation: Bool = false
-
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width / 2.0
             VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "xmark.circle")
+                            .font(.largeTitle)
+                    }
+                }
                 if let artwork = self.music.selectAlbum!.artwork {
                     let rate = self.music.artworkRate(artwork: artwork)
                     ZStack {

@@ -51,9 +51,13 @@ struct AlbumView: View {
                     }
                 }
 
-            }.sheet(isPresented: self.$onAlbumInfoView, onDismiss: {}) {
+            }
+            .fullScreenCover(isPresented: self.$onAlbumInfoView, onDismiss: {}) {
                 AlbumInfoView()
             }
+//            .sheet(isPresented: self.$onAlbumInfoView, onDismiss: {}) {
+//                AlbumInfoView()
+//            }
         }
         .task {
             await self.music.searchAlbum(artist: self.artist)
