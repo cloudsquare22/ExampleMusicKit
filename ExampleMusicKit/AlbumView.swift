@@ -63,7 +63,7 @@ struct AlbumView: View {
             await self.music.searchAlbum(artist: self.artist)
         }
         .navigationBarTitle(self.artist.name, displayMode: .inline)
-        .navigationBarItems(trailing: Button(action: {self.onAlbumInfoView.toggle()}, label: {Image(systemName: "play.rectangle.on.rectangle")}))
+        .navigationBarItems(trailing: Button(action: {self.onAlbumInfoView.toggle()}, label: {Image(systemName: "play.rectangle.on.rectangle").font(.title)}))
     }
 }
 
