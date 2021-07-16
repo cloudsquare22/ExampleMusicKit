@@ -38,9 +38,9 @@ struct AlbumInfoView: View {
                         else {
                             Color(uiColor: .systemGray4)
                         }
-                        ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                        ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
                             .opacity(self.isPlay == false ? 1.0 : 0.0)
-                        ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                        ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
                             .rotationEffect(.degrees(rotation))
                             .opacity(self.isPlay == false ? 0.0 : 1.0)
                     }
@@ -56,7 +56,7 @@ struct AlbumInfoView: View {
                     .padding(8.0)
                 Text(self.music.selectAlbum!.artistName)
                     .padding(2.0)
-                if let releaseDate = self.music.getReleaseDate(album: self.music.selectAlbum!) {
+                if let releaseDate = self.music.selectAlbum?.releaseDate?.description {
                     Label(releaseDate, systemImage: "calendar.circle")
                         .padding(2.0)
                         .symbolRenderingMode(.hierarchical)

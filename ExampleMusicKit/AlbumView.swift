@@ -29,7 +29,7 @@ struct AlbumView: View {
                                 else {
                                     Color(uiColor: .systemGray4)
                                 }
-                                ArtworkImage(artwork, width: Int(width * rate.0), height: Int(width * rate.1))
+                                ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
                                     .onTapGesture(count: 2) {
                                         self.music.play(album: album)
                                     }
