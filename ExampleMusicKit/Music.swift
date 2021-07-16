@@ -191,18 +191,15 @@ class Music: ObservableObject {
     
     func getReleaseDate(album: Album) -> String? {
         print(#function)
-        print(album.debugDescription)
         var result: String? = nil
-     
-        let pattern = ".*releaseDate: \"(.*)\",.*"
-        guard let regex = try? NSRegularExpression(pattern: pattern) else { return result }
-        let matches = regex.matches(in: album.debugDescription, range: NSRange(location: 0, length: album.debugDescription.count))
-        if matches.count > 0 {
-            let checkNS = NSString(string: album.debugDescription)
-            result = checkNS.substring(with: matches[0].range(at: 1))
-            print("result:\(result!)")
+
+        if let releaseDate = album.releaseDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .none
+            dateFormatter.locale = .current
+            result = dateFormatter.string(from: releaseDate)
         }
-        
         return result
     }
     
