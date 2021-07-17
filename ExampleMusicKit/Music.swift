@@ -21,7 +21,7 @@ class Music: ObservableObject {
     init() {
         self.player = SystemMusicPlayer.shared
         self.playerApl = ApplicationMusicPlayer.shared
-        async {
+        Task() {
             await self.authotizationRequest()
         }
     }
@@ -35,7 +35,7 @@ class Music: ObservableObject {
         guard searchKey.isEmpty == false else {
             return
         }
-        async {
+        Task() {
             do {
                 DispatchQueue.main.async {
                     self.albums = []
@@ -122,7 +122,7 @@ class Music: ObservableObject {
         guard searchText.isEmpty == false else {
             return
         }
-        async {
+        Task() {
             do {
                 DispatchQueue.main.async {
                     self.artists = []
