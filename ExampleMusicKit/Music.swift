@@ -17,6 +17,7 @@ class Music: ObservableObject {
     @Published var albums: [Album] = []
     @Published var artists: MusicItemCollection<Artist> = []
     @Published var selectAlbum: Album? = nil
+    @Published var playingAlbum: Album? = nil
     
     init() {
         self.player = SystemMusicPlayer.shared
@@ -205,6 +206,7 @@ class Music: ObservableObject {
     
     func play(album: Album) {
         if let player = self.player {
+            self.playingAlbum = self.selectAlbum
             player.setQueue(with: album)
             player.play()
         }

@@ -29,38 +29,10 @@ struct AlbumInfoView: View {
                             .font(.largeTitle)
                     }
                 }
-                if let artwork = self.music.selectAlbum!.artwork {
-                    let rate = self.music.artworkRate(artwork: artwork)
-                    ZStack {
-                        if let cgcolor = artwork.backgroundColor {
-                            Color(cgColor: cgcolor)
-                        }
-                        else {
-                            Color(uiColor: .systemGray4)
-                        }
-                        ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
-                            .opacity(self.isPlay == false ? 1.0 : 0.0)
-                        ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
-                            .rotationEffect(.degrees(rotation))
-                            .opacity(self.isPlay == false ? 0.0 : 1.0)
-                    }
-                    .frame(width: width, height: width)
-                    .clipShape(Circle())
-                }
-                else {
-                    Image(systemName: "disc")
-                        .clipShape(Circle())
-                }
-                Text(self.music.selectAlbum!.title)
-                    .font(.title2)
-                    .padding(8.0)
-                Text(self.music.selectAlbum!.artistName)
-                    .padding(2.0)
-                if let releaseDate = self.music.getReleaseDate(album: self.music.selectAlbum!) {
-                    Label(releaseDate, systemImage: "calendar.circle")
-                        .padding(2.0)
-                        .symbolRenderingMode(.hierarchical)
-                }
+
+                AlbumArtwork(width: width, rotation: self.rotation, isPlay: self.$isPlay)
+                AlbumText()
+
                 Button(action: {
                     if self.isPlay == false {
                         if self.isPlay1st == true {
@@ -140,5 +112,56 @@ struct ProminentButtonStyle: ButtonStyle {
     private var backgroundColor: Color {
         return Color(uiColor: .systemGray4)
 //        return Color(uiColor: (colorScheme == .dark) ? .secondarySystemBackground : .systemBackground)
+    }
+}
+
+struct AlbumArtwork: View {
+    @EnvironmentObject var music: Music
+    let width: Double
+    let rotation: Double
+    @Binding var isPlay: Bool
+    
+    var body: some View {
+        if let artwork = self.music.selectAlbum!.artwork {
+            let rate = self.music.artworkRate(artwork: artwork)
+            ZStack {
+                if let cgcolor = artwork.backgroundColor {
+                    Color(cgColor: cgcolor)
+                }
+                else {
+                    Color(uiColor: .systemGray4)
+                }
+                ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
+                    .opacity(self.isPlay == false ? 1.0 : 0.0)
+                ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
+                    .rotationEffect(.degrees(rotation))
+                    .opacity(self.isPlay == false ? 0.0 : 1.0)
+            }
+            .frame(width: width, height: width)
+            .clipShape(Circle())
+        }
+        else {
+            Image(systemName: "disc")
+                .clipShape(Circle())
+        }
+    }
+}
+    
+struct AlbumText: View {
+    @EnvironmentObject var music: Music
+    
+    var body: some View {
+        VStack {
+            Text(self.music.selectAlbum!.title)
+                .font(.title2)
+                .padding(8.0)
+            Text(self.music.selectAlbum!.artistName)
+                .padding(2.0)
+            if let releaseDate = self.music.getReleaseDate(album: self.music.selectAlbum!) {
+                Label(releaseDate, systemImage: "calendar.circle")
+                    .padding(2.0)
+                    .symbolRenderingMode(.hierarchical)
+            }
+        }
     }
 }
