@@ -31,7 +31,7 @@ struct AlbumView: View {
                                 }
                                 ArtworkImage(artwork, width: width * rate.0, height: width * rate.1)
                                     .onTapGesture(count: 2) {
-                                        self.music.play(album: album)
+//                                        self.music.play(album: album)
                                     }
                                     .onTapGesture {
                                         print("tap 1")

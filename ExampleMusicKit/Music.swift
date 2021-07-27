@@ -204,17 +204,27 @@ class Music: ObservableObject {
         return result
     }
     
-    func play(album: Album) {
+    func play(album: Album) async {
         if let player = self.player {
             self.playingAlbum = self.selectAlbum
             player.setQueue(with: album)
-            player.play()
+            do {
+                try await player.play()
+            }
+            catch {
+                
+            }
         }
     }
     
-    func play() {
+    func play() async {
         if let player = self.player {
-            player.play()
+            do {
+                try await player.play()
+            }
+            catch {
+                
+            }
         }
     }
     

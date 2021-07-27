@@ -36,12 +36,16 @@ struct AlbumInfoView: View {
                 Button(action: {
                     if self.isPlay == false {
                         if self.isPlay1st == true {
-                            self.music.play(album: self.music.selectAlbum!)
+                            Task() {
+                                await self.music.play(album: self.music.selectAlbum!)
+                            }
                             self.isPlay1st = false
                             self.isAnnimation = true
                         }
                         else {
-                            self.music.play()
+                            Task() {
+                                await self.music.play()
+                            }
                             self.isAnnimation = true
                         }
                         withAnimation(Animation.linear(duration: 5.0).repeatForever(autoreverses: false)) {

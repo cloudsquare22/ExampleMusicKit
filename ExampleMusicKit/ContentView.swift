@@ -35,7 +35,7 @@ struct ContentView: View {
                         Text(album.title)
                     }
                     .onTapGesture {
-                        self.music.play(album: album)
+//                        self.music.play(album: album)
                     }
                 }
             }
