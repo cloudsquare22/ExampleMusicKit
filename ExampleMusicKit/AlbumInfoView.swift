@@ -166,6 +166,10 @@ struct AlbumText: View {
                     .padding(2.0)
                     .symbolRenderingMode(.hierarchical)
             }
+            if let copyright = self.music.selectAlbum!.copyright {
+                Text(copyright)
+                    .padding(2.0)
+            }
         }
     }
 }
