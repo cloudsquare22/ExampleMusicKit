@@ -207,7 +207,9 @@ class Music: ObservableObject {
     func play(album: Album) async {
         if let player = self.player {
             self.playingAlbum = self.selectAlbum
-            player.setQueue(with: album)
+            
+            let musicQueue: SystemMusicPlayer.Queue = SystemMusicPlayer.Queue(arrayLiteral: album)
+            player.queue = musicQueue
             do {
                 try await player.play()
             }
