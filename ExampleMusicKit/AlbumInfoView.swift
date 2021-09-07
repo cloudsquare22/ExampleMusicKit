@@ -159,6 +159,9 @@ struct AlbumText: View {
             Text(self.music.selectAlbum!.title)
                 .font(.title2)
                 .padding(8.0)
+            Text("\(self.music.selectAlbum!.trackCount) tracks")
+                .font(.title2)
+                .padding(8.0)
             Text(self.music.selectAlbum!.artistName)
                 .padding(2.0)
             if let releaseDate = self.music.getReleaseDate(album: self.music.selectAlbum!) {
